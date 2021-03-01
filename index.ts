@@ -30,7 +30,7 @@ const runServer = async () => {
 		session({
 			name: "barber-shop-ms.sid",
 			secret: "hummus",
-			cookie: { maxAge: 1000 * 3600 },
+			cookie: { maxAge: 1000 * 3600, sameSite: "none" },
 			resave: true,
 			saveUninitialized: true,
 			store: new MongoStore({ mongooseConnection: mongoose.connection }),

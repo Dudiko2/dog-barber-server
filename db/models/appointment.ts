@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 import { IAppointmentDocument, IAppointmentModel } from "./@types/appointment";
 
-const appointmentSchema = new Schema({
+const appointmentSchema = new Schema<IAppointmentDocument, IAppointmentModel>({
 	created: {
 		type: Date,
 		required: true,
