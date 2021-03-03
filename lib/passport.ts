@@ -13,7 +13,9 @@ const getPassport = () => {
 				const clientReturned = await Client.getByUsername(username);
 
 				if (!clientReturned) return done(null, false);
-				if (!clientReturned.verifyPassword(password)) return done(null, false);
+
+				const verified = await clientReturned.verifyPassword(password);
+				if (!verified) return done(null, false);
 
 				return done(null, clientReturned);
 			} catch (e) {
