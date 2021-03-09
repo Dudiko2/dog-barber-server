@@ -31,8 +31,11 @@ const clientsRoute = () => {
 		try {
 			const client = new Client(req.body);
 			await client.save();
+			return req.login(client, (e) => {
+				if (e) return res.status(500).json({ msg: "Error" });
 
-			return res.json(client);
+				return res.status(201).json(req.user);
+			});
 		} catch (e) {
 			return res.status(400).json({ error: e.message });
 		}
