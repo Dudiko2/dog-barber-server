@@ -1,4 +1,3 @@
-// /api/login
 import express from "express";
 import { PassportStatic } from "passport";
 

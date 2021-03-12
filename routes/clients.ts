@@ -1,8 +1,8 @@
-// /api/clients
 import express from "express";
 import mongoose from "mongoose";
 
 import isAuth from "../lib/isAuth";
+import isUnauth from "../lib/isUnauth";
 import { getDataFromBody } from "../db/db";
 
 import { IClientDocument, IClientModel } from "../db/models/@types/client";
@@ -28,7 +28,7 @@ const clientsRoute = () => {
 		return res.json(req.user);
 	});
 
-	router.post("/", async (req, res) => {
+	router.post("/", isUnauth, async (req, res) => {
 		try {
 			const clientData = getDataFromBody(req.body);
 			const client = new Client(clientData);

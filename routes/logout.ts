@@ -1,4 +1,3 @@
-// /api/logout
 import express from "express";
 import isAuth from "../lib/isAuth";
 
