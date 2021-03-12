@@ -10,3 +10,9 @@ export const connectDB = async () => {
 		useCreateIndex: true,
 	});
 };
+
+export const getDataFromBody = (reqBody: any) => {
+	const { _id, ...data } = reqBody;
+
+	return data;
+};

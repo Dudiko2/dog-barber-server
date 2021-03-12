@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import isAuth from "../lib/isAuth";
+import { getDataFromBody } from "../db/db";
 
 import { IClientDocument, IClientModel } from "../db/models/@types/client";
 
@@ -29,7 +30,8 @@ const clientsRoute = () => {
 
 	router.post("/", async (req, res) => {
 		try {
-			const client = new Client(req.body);
+			const clientData = getDataFromBody(req.body);
+			const client = new Client(clientData);
 			await client.save();
 			return req.login(client, (e) => {
 				if (e) return res.status(500).json({ msg: "Error" });

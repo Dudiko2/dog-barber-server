@@ -43,8 +43,8 @@ clientSchema.methods.verifyPassword = async function (password: string) {
 	return match;
 };
 
-clientSchema.statics.getByUsername = function (username: string) {
-	return this.findOne({ username });
+clientSchema.statics.getByUsername = async function (username: string) {
+	return await this.findOne({ username });
 };
 
 clientSchema.pre("save", async function (next) {
