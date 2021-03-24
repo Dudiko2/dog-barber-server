@@ -11,6 +11,7 @@ const clientsRoute = () => {
 	const router = express.Router();
 	const Client = mongoose.model<IClientDocument, IClientModel>("Client");
 
+	// Delete that
 	router.get("/", async (_req, res) => {
 		try {
 			const clients = await Client.find({});
@@ -38,6 +39,33 @@ const clientsRoute = () => {
 
 				return res.status(201).json(req.user);
 			});
+		} catch (e) {
+			return res.status(400).json({ error: e.message });
+		}
+	});
+
+	router.put("/", isAuth, async (req, res) => {
+		try {
+			const newClientData = getDataFromBody(req.body);
+			const client = req.user as IClientDocument;
+
+			for (const key in newClientData) {
+				client[key] = newClientData[key];
+			}
+
+			await client.save();
+			return res.status(200).json(client);
+		} catch (e) {
+			return res.status(400).json({ error: e.message });
+		}
+	});
+
+	router.delete("/", isAuth, async (req, res) => {
+		try {
+			const client = req.user as IClientDocument;
+
+			await client.delete();
+			return res.status(200).json({ msg: "Client removed" });
 		} catch (e) {
 			return res.status(400).json({ error: e.message });
 		}

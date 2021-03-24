@@ -45,7 +45,7 @@ const appointmentsRoute = () => {
 			await appointment.save();
 			await client.save();
 
-			return res.status(201).json({ success: "yay" });
+			return res.status(201).json(appointment);
 		} catch (e) {
 			console.log(e);
 			return res.status(500).json({ message: "Server Error" });
