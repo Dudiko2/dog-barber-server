@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 
 import { IClientDocument, IClientModel } from "./@types/client";
@@ -41,6 +41,10 @@ clientSchema.methods.verifyPassword = async function (password: string) {
 	const match = await bcrypt.compare(password, hashedPassword);
 
 	return match;
+};
+
+clientSchema.methods.hasAppointment = function (id: Types.ObjectId) {
+	return this.appointments.includes(id);
 };
 
 clientSchema.statics.getByUsername = async function (username: string) {

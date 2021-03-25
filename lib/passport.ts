@@ -25,14 +25,12 @@ const getPassport = () => {
 	);
 
 	passport.serializeUser((user: any, done) => {
-		console.log("serialize");
 		return done(null, user.username);
 	});
 
 	passport.deserializeUser(async (username: string, done) => {
 		try {
 			const client = await Client.getByUsername(username);
-			console.log(`deserialize`);
 			return done(null, client);
 		} catch (e) {
 			return done(e);

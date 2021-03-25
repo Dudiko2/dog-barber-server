@@ -5,6 +5,7 @@ interface IClientDocument extends Document {
 	username: string;
 	password: string;
 	appointments: Types.ObjectId[];
+	hasAppointment: (id: Types.ObjectId) => boolean;
 }
 
 interface IClientModel extends Model<IClientDocument> {

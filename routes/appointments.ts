@@ -51,8 +51,47 @@ const appointmentsRoute = () => {
 			return res.status(500).json({ message: "Server Error" });
 		}
 	});
-	// router.put
-	// router.delete
+
+	router.put("/", async (req, res) => {
+		try {
+			const client = req.user as IClientDocument;
+			const appointmentId: mongoose.Types.ObjectId = req.body.id;
+			const data = getDataFromBody(req.body);
+
+			if (!client.hasAppointment(appointmentId)) return res.sendStatus(400);
+
+			const appointment = await Appointment.findById(appointmentId);
+
+			appointment.scheduled = data.scheduled || appointment.scheduled;
+			await appointment.save();
+
+			return res.status(200).json(appointment);
+		} catch (e) {
+			return res.status(400).json({ error: e.message });
+		}
+	});
+
+	router.delete("/", async (req, res) => {
+		try {
+			const client = req.user as IClientDocument;
+			const appointmentId: mongoose.Types.ObjectId = req.body.id;
+
+			if (!client.hasAppointment(appointmentId)) return res.sendStatus(400);
+
+			client.appointments = client.appointments.filter(
+				(a) => !a.equals(appointmentId)
+			);
+
+			const appointment = await Appointment.findById(appointmentId);
+
+			await appointment.delete();
+			await client.save();
+
+			return res.status(200).json({ msg: "Appointment removed" });
+		} catch (e) {
+			return res.status(400).json({ error: e.message });
+		}
+	});
 
 	return router;
 };
