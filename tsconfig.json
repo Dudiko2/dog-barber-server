@@ -1,14 +1,15 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"esModuleInterop": true,
-		"target": "es6",
-		"moduleResolution": "node",
-		"sourceMap": true,
-		"outDir": "build",
-		"isolatedModules": false,
-		"noEmit": false,
-		"skipLibCheck": true
-	},
-	"lib": ["es2015"]
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es6",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "build",
+        "isolatedModules": false,
+        "noEmit": false,
+        "skipLibCheck": true,
+        "rootDir": "src"
+    },
+    "lib": ["es2015"]
 }
